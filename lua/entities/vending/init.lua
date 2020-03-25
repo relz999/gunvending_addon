@@ -7,7 +7,9 @@ local AlarmUsesNumber = 0
 
 function ENT:Initialize()
 	-- Model of vending machine
-	self:SetModel("models/props_interiors/vendingmachinesoda01a_door.mdl")
+	-- self:SetModel("models/props_interiors/vendingmachinesoda01a_door.mdl")
+	
+	self:SetModel("models/Items/ammocrate_ar2.mdl")
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
@@ -132,7 +134,7 @@ function DepositGun(ply, success, ent)
 		ent:SetShipmentSize(ent:GetShipmentSize() - 1)
 		DarkRP.notify(ent:Getowning_ent(), 1, 4, "Someone lockpicked your vending machine!!")
 		if ply:isWanted() == false then
-		ply:wanted(ent:Getowning_ent(),"Stealing Gun from vending machine!!")
+		ply:wanted(null,"Stealing Gun from vending machine!!")
 	end
 	end
 end
@@ -140,7 +142,7 @@ end
 -- Function and Hook to check alarm when lockpicked
 function RunAlarm(ply, ent, table)
 	if AlarmExists == true && AlarmUsesNumber ~= 0 then
-	ply:wanted(ent:Getowning_ent(),"Stealing Gun from vending machine!!")
+	ply:wanted(null,"Stealing Gun from vending machine!!")
 	ent:StartLoopingSound("school_alarm.mp3")
 	AlarmUsesNumber = AlarmUsesNumber - 1	
 	if AlarmUsesNumber == 0 then
