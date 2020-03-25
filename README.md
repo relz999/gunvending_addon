@@ -6,7 +6,6 @@ Version history / Change log
 To Do log
 ==========
 1. Gun dealer menu to set prices and org/gang discounts
-2. Text on vending machine to give status of number of guns, etc.
 
 Version 1
 -----------
