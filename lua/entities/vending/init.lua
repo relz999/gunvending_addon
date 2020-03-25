@@ -4,6 +4,12 @@ include("shared.lua")
 gunType = ""
 canBuy = true
 
+
+
+
+
+
+
 function ENT:Initialize()
 	-- Model of vending machine
 	self:SetModel("models/props_interiors/vendingmachinesoda01a_door.mdl")
@@ -12,6 +18,11 @@ function ENT:Initialize()
 	self:SetSolid( SOLID_VPHYSICS )
 	self.isRunning = false
 	self.DarkRPCanLockpick = true
+	-- Make entity a fading door to fudge allowing it to be lockpicked // Credit to Apollo for idea.
+	self.isFadingDoor = true;
+	self.fadeActivate = false
+	self.fadeDeactivate = true
+	self.fadeToggleActive = true
 	local phys = self:GetPhysicsObject()
 	if (phys:IsValid()) then
 		phys:Wake()
@@ -63,11 +74,11 @@ if caller:canAfford(GunPrice) then
 			self.isVending = false
 			return
 		end
-			caller:ChatPrint("Thank you for your purchas, enjoy your ("..GunName..")")
+			caller:ChatPrint("Thank you for your purchase, enjoy your ("..GunName..")")
 		return
 	end
 else
-	caller:ChatPrint("You cannot afford to play! ("..GunPrice..")")
+	caller:ChatPrint("You do not have enough funds to purchase. Please have atleast ("..GunPrice..")")
 	return
 end 
 
@@ -91,3 +102,15 @@ function ENT:Think()
 -- 		gun:Spawn()
 -- 	end
 end
+-- Function and Hook to dispense a gun if lockpicked.
+function DepositGun(ply, success, ent)
+
+	-- if successfully picked 
+	if success == true then
+		local gun = ents.Create(GunType)
+		gun:SetPos(ent:GetPos() + Vector(0,0,25))
+		gun:Spawn()
+	end
+end
+-- Hook for completed lockpick.
+hook.Add("onLockpickCompleted", "UniqueName", DepositGun)
