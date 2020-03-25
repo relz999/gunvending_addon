@@ -46,7 +46,8 @@ function ENT:StartTouch(ent)
 		print(CustomShipments[ent:Getcontents()].amount)
 		-- Key shipment details
 		local ShipmentSize = CustomShipments[ent:Getcontents()].amount
-		local GunPrice = CustomShipments[ent:Getcontents()].price
+		-- Mark up prices by 20%
+		local GunPrice = CustomShipments[ent:Getcontents()].price * 1.2
 		local GunName = CustomShipments[ent:Getcontents()].name
 		self:SetShipmentSize(ShipmentSize)
         self:SetGunPrice(GunPrice)
@@ -134,7 +135,7 @@ function DepositGun(ply, success, ent)
 		ent:SetShipmentSize(ent:GetShipmentSize() - 1)
 		DarkRP.notify(ent:Getowning_ent(), 1, 4, "Someone lockpicked your vending machine!!")
 		if ply:isWanted() == false then
-		ply:wanted(null,"Stealing Gun from vending machine!!")
+		ply:wanted(ent:Getowning_ent(),"Stealing Gun from vending machine!!")
 	end
 	end
 end
@@ -142,7 +143,7 @@ end
 -- Function and Hook to check alarm when lockpicked
 function RunAlarm(ply, ent, table)
 	if AlarmExists == true && AlarmUsesNumber ~= 0 then
-	ply:wanted(null,"Stealing Gun from vending machine!!")
+	ply:wanted(ent:Getowning_ent(),"Stealing Gun from vending machine!!")
 	ent:StartLoopingSound("school_alarm.mp3")
 	AlarmUsesNumber = AlarmUsesNumber - 1	
 	if AlarmUsesNumber == 0 then
