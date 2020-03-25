@@ -119,19 +119,7 @@ end
 
 
 function ENT:Think()
-	if self.isVending == true then
-		self:SetColor(Color(255,0,0))
-	else
-		self:SetColor(Color(0,225,0))
-	end
--- if self.isVending == true then
--- 	if self.finishVendTime <= CurTime() then
--- 		self.isVending = false
-
--- 		local gun = ents.Create(GunType)
--- 		gun:SetPos(self:GetPos() + Vector(0,0,25))
--- 		gun:Spawn()
--- 	end
+	
 end
 -- Function and Hook to dispense a gun if lockpicked.
 function DepositGun(ply, success, ent)
@@ -143,12 +131,16 @@ function DepositGun(ply, success, ent)
 		gun:Spawn()
 		ent:SetShipmentSize(ent:GetShipmentSize() - 1)
 		DarkRP.notify(ent:Getowning_ent(), 1, 4, "Someone lockpicked your vending machine!!")
+		if ply:isWanted() == false then
+		ply:wanted(ent:Getowning_ent(),"Stealing Gun from vending machine!!")
+	end
 	end
 end
 
 -- Function and Hook to check alarm when lockpicked
 function RunAlarm(ply, ent, table)
 	if AlarmExists == true && AlarmUsesNumber ~= 0 then
+	ply:wanted(ent:Getowning_ent(),"Stealing Gun from vending machine!!")
 	ent:StartLoopingSound("school_alarm.mp3")
 	AlarmUsesNumber = AlarmUsesNumber - 1	
 	if AlarmUsesNumber == 0 then
@@ -157,6 +149,6 @@ function RunAlarm(ply, ent, table)
 	end
 end
 -- Hook for completed lockpick.
-hook.Add("onLockpickCompleted", "UniqueName", DepositGun)
+hook.Add("onLockpickCompleted", "UniqueName1", DepositGun)
 -- Hook for lockpick started
-hook.Add("lockpickStarted", "UniqueName", RunAlarm)
+hook.Add("lockpickStarted", "UniqueName2", RunAlarm)
