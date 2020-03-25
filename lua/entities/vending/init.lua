@@ -149,13 +149,8 @@ end
 -- Function and Hook to check alarm when lockpicked
 function RunAlarm(ply, ent, table)
 	if AlarmExists == true && AlarmUsesNumber ~= 0 then
-		ent:StartLoopingSound("school_alarm.mp3")
-	timer.Simple(10, function()
-		ent:StopSound("school_alarm.mp3")
-	end)
-	
-	AlarmUsesNumber = AlarmUsesNumber - 1
-	
+	ent:StartLoopingSound("school_alarm.mp3")
+	AlarmUsesNumber = AlarmUsesNumber - 1	
 	if AlarmUsesNumber == 0 then
 		AlarmExists = false
 	end
