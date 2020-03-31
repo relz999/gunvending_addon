@@ -5,8 +5,8 @@ Version history / Change log
 
 To Do log
 ==========
-1. Gun dealer menu to set prices and org/gang discounts
-2. Text on vending machine to give status of number of guns, etc.
+1. Option to eject guns in vending machine as a shipment.
+2. Allow multiple gun shipments to be sold and provide an interactive menu to switch between them.
 
 Version 1
 -----------
@@ -23,3 +23,9 @@ Version 1.1
 Version 1.2
 -----------
 + Added text details to front of vending machine
+
+Version 1.3
+-----------
++ Added Firetrap, this is a one time use addon which sets the vending machine on fire for 30 seconds when someone tries to lockpick it.
++ Added Owner menu to allow checking of stock level, profit and gun sale price.
++ Added feature to add money to owner whenever a gun is sold.
